@@ -18,12 +18,21 @@ export const Card = () => {
                 </Center>
 
                 <Input
-                    placeholder="Digite seu nome"
+                    placeholder="Digite seu Nome"
                     marginTop="10px"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
                 />
-
+                <Input
+                    placeholder="Digite seu E-Mail"
+                    marginTop="10px"
+                />
+                <Input
+                    placeholder="Digite sua Senha"
+                    type="password"
+                    marginTop="10px"
+                />
+                
                 <Center>
                     <ButtonLogin onClick={handleLogin} label='Entrar' />
                 </Center>
@@ -31,5 +40,4 @@ export const Card = () => {
         </Box>
     );
 };
-
 

@@ -1,7 +1,7 @@
 import { Button } from "@chakra-ui/react";
 
 interface ButtonLoginProps {
-  onClick: () => void;
+  onClick?: () => void;
   label: string;
 }
 
