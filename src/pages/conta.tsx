@@ -1,4 +1,5 @@
 import { Center, SimpleGrid, Spinner } from "@chakra-ui/react";
+import { useNavigate, useParams } from "react-router-dom";
 import CardInfo from "../components/CardInfo";
 import { useEffect, useState } from "react";
 import { api } from "../api";
@@ -7,7 +8,8 @@ interface UserData {
     email: string,
     password: string,
     name: string,
-    balance: number
+    balance: number,
+    id: string
 }
 
 const Conta = () => {
@@ -22,14 +24,18 @@ const Conta = () => {
 
         getData()
     }, [])
-
-    const actualData = new Date()
-    {/*console.log(actualData.toDateString()) => aqui ele pega a data e horario todos juntos*/ }
     console.log(userData)
+
+    const { id } = useParams()
+    const navigate = useNavigate()
+    console.log( id )
+    
+    if(userData && id !== userData.id){
+        navigate('/')
+    }
 
     const formatDate = (): string => {
         const actualData = new Date();
-
         const dia = actualData.getDate().toString().padStart(2, '0');           // ✅ Dia do mês (1-31)
         const mes = (actualData.getMonth() + 1).toString().padStart(2, '0');    // ✅ Mês (1-12)
         const ano = actualData.getFullYear();                                   // Ano completo
