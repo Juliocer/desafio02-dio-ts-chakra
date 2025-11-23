@@ -1,6 +1,6 @@
 import { Box, Center, Input, Heading } from "@chakra-ui/react";
 import { ButtonLogin } from "../Button/Button";
-import { login } from "../../services/login";
+import { loginName, loginEmail } from "../../services/login";
 import { useState, useEffect } from "react";
 import { api } from "../../api";
 
@@ -12,8 +12,10 @@ interface UserData {
 
 export const Card = () => {
     const [name, setName] = useState<string>("");
-    const [userData, setUserData] = useState<null | UserData>()
+    const [email, setEmail] = useState<string>("");
+    const [password, setPassword] = useState<string>()
 
+    const [userData, setUserData] = useState<null | UserData>()
     useEffect(() => {
         const getData = async () => {
             const data: any | UserData = await api
@@ -22,11 +24,11 @@ export const Card = () => {
 
         getData()
     }, [])
-
     console.log(userData)
 
     const handleLogin = () => {
-        login(name);
+        loginName(name);
+        loginEmail(email);
     };
 
     return (
@@ -45,11 +47,15 @@ export const Card = () => {
                 <Input
                     placeholder="Digite seu E-Mail"
                     marginTop="10px"
+                    value={email}
+                    onChange={(e) => setEmail(e.target.value)}
                 />
                 <Input
                     placeholder="Digite sua Senha"
                     type="password"
                     marginTop="10px"
+                    value={password}
+                    onChange={(e) => setPassword(e.target.value)}
                 />
                 
                 <Center>
