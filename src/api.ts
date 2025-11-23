@@ -8,5 +8,5 @@ const conta = {
 export const api = new Promise((resolve) => {
     setTimeout(() => {
         resolve(conta)
-    }, 500)
+    }, 1000)
 })
