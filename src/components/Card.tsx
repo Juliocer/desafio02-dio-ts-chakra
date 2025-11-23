@@ -1,6 +1,6 @@
 import { Box, Center, Input, Heading } from "@chakra-ui/react";
-import { ButtonLogin } from "../Button/Button";
-import { login } from "../../services/login";
+import { ButtonLogin } from "./Button";
+import { login } from "../services/login";
 import { useState } from "react";
 
 export const Card = () => {

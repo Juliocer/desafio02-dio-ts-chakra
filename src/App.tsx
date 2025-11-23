@@ -1,16 +1,22 @@
-import { ChakraProvider } from '@chakra-ui/react'
-import { Header } from './components/Header/Header';
-import { Card } from './components/Card/Card';
+import { ChakraProvider } from '@chakra-ui/react';
+import Conta from './pages/conta';
+import Home from './pages/home';
+import { BrowserRouter, Route, Routes } from 'react-router-dom';
+import Layout from './components/Layout';
 
 function App() {
 
   return (
-    <>
+    <BrowserRouter>
       <ChakraProvider>
-        <Header />
-        <Card />
+        <Layout>
+          <Routes>
+            <Route path='/' element={<Home />} />
+            <Route path='/conta' element={<Conta />} />
+          </Routes>
+        </Layout>
       </ChakraProvider>
-    </>
+    </BrowserRouter>
   );
 }
 
