@@ -1,4 +1,6 @@
+import { useContext } from "react";
 import { api } from "../api";
+import { AppContext } from "../components/AppContext";
 
 interface UserData {
     email: string;
@@ -11,6 +13,10 @@ export const login = async (
     email: string, 
     password: string
 ): Promise<boolean> => {
+
+    const { isLoggedIn } = useContext(AppContext)
+    console.log(isLoggedIn)
+
     // Validações básicas de campos vazios
     if (!name || name.trim() === '') {
         alert('Por favor, digite seu nome');

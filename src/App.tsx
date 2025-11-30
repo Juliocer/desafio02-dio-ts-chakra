@@ -3,19 +3,21 @@ import Conta from './pages/conta';
 import Home from './pages/home';
 import { BrowserRouter, Route, Routes } from 'react-router-dom';
 import Layout from './components/Layout';
+import { AppContextProvider } from './components/AppContext';
 
 function App() {
-
   return (
     <BrowserRouter>
-      <ChakraProvider>
-        <Layout>
-          <Routes>
-            <Route path='/' element={<Home />} />
-            <Route path='/conta:id' element={<Conta />} />
-          </Routes>
-        </Layout>
-      </ChakraProvider>
+      <AppContextProvider>
+        <ChakraProvider>
+          <Layout>
+            <Routes>
+              <Route path='/' element={<Home />} />
+              <Route path='/conta/:id' element={<Conta />} />
+            </Routes>
+          </Layout>
+        </ChakraProvider>
+      </AppContextProvider>
     </BrowserRouter>
   );
 }
