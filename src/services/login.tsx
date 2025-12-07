@@ -1,6 +1,7 @@
 import { useContext } from "react";
 import { api } from "../api";
 import { AppContext } from "../components/AppContext";
+import { useNavigate } from "react-router-dom";
 
 interface UserData {
     email: string;
@@ -10,7 +11,8 @@ interface UserData {
 
 export const useLogin = () => {
 
-    const { isLoggedIn } = useContext(AppContext);
+    const { setIsLoggedIn } = useContext(AppContext);
+    const navigate = useNavigate()
 
     const login = async (
         name: string,
@@ -18,7 +20,7 @@ export const useLogin = () => {
         password: string
     ): Promise<boolean> => {
 
-        console.log(isLoggedIn)
+        console.log(setIsLoggedIn)
 
         // Validações básicas de campos vazios
         if (!name || name.trim() === '') {
@@ -56,6 +58,8 @@ export const useLogin = () => {
                 return false;
             }
 
+            setIsLoggedIn(true)
+            navigate(`/${data.id}`)
             // Login bem-sucedido
             alert(`Bem vindo, ${name}!`);
             return true;
