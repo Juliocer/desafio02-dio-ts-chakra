@@ -1,6 +1,7 @@
-import { login } from "./login"
+import { useContext } from "react"
+import { useLogin } from "./login"
 
-// Mock da API
+/* // Mock da API
 jest.mock('../api', () => ({
     api: Promise.resolve({
         email: 'julio@gmail.com',
@@ -8,10 +9,20 @@ jest.mock('../api', () => ({
         name: 'Julio'
     })
 }))
+*/
+
+jest.mock('react', () => ({
+    ...jest.requireActual('react'),
+    useContext: () => ({
+        isLoggedIn: true
+    })
+}))
 
 describe('login', () => {
     const mockAlert = jest.fn()
     window.alert = mockAlert
+
+    const { login } = useLogin();
 
     beforeEach(() => {
         mockAlert.mockClear();

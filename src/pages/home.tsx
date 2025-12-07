@@ -1,7 +1,7 @@
 import { useState } from "react";
 import { Box, Center, Heading, Input } from "@chakra-ui/react";
 import { Card } from "../components/Card";
-import { login } from "../services/login";
+import { useLogin } from "../services/login";
 import { ButtonLogin } from "../components/Button";
 
 const Home = () => {
@@ -9,6 +9,8 @@ const Home = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
+
+    const { login } = useLogin();
 
     const handleLogin = async () => {
         setIsLoading(true);
