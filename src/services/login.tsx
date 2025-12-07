@@ -13,8 +13,10 @@ interface UserData {
 
 export const useLogin = () => {
 
+    /*
     const { setIsLoggedIn } = useContext(AppContext);
     const navigate = useNavigate()
+    */
 
     const login = async (
         name: string,
@@ -58,10 +60,11 @@ export const useLogin = () => {
                 return false;
             }
 
+            /*
              // Login bem-sucedido
             setIsLoggedIn(true)
-            navigate(`/${data.id}`)
-            alert(`Bem vindo, ${name}!`);
+            navigate(`/conta/${data.id}`)
+            alert(`Bem vindo, ${name}!`); */
             return true;
 
         } catch (error) {

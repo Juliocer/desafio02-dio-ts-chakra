@@ -1,8 +1,10 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Box, Center, Heading, Input } from "@chakra-ui/react";
 import { Card } from "../components/Card";
 import { useLogin } from "../services/login";
 import { ButtonLogin } from "../components/Button";
+import { Navigate } from "react-router-dom";
+import { AppContext } from "../components/AppContext";
 
 const Home = () => {
     const [name, setName] = useState<string>("");
@@ -12,11 +14,26 @@ const Home = () => {
 
     const { login } = useLogin();
 
+    const { setIsLoggedIn } = useContext(AppContext)
+    const navigate = useNavigate()
+
+    const validateUser = async (email: string) => {
+        const loggedIn = await login(email)
+
+        if (!loggedIn) {
+            alert('Email invalido')
+        }
+
+        setIsLoading(true)
+        Navigate('/conta/1')
+    }
+
+    /*
     const handleLogin = async () => {
         setIsLoading(true);
         await login(name, email, password);
         setIsLoading(false);
-    };
+    }; */
     return (
         <Card>
             <Box backgroundColor="#FFFFFF" borderRadius="25px" padding="15px">
@@ -49,7 +66,7 @@ const Home = () => {
 
                 <Center>
                     <ButtonLogin
-                        onClick={handleLogin}
+                        onClick={ validateUser(email) }
                         label={isLoading ? 'Carregando...' : 'Entrar'}
                     />
                 </Center>
