@@ -7,6 +7,8 @@ interface UserData {
     email: string;
     password: string;
     name: string;
+    balance: number;
+    id: string;
 }
 
 export const useLogin = () => {
@@ -19,8 +21,6 @@ export const useLogin = () => {
         email: string,
         password: string
     ): Promise<boolean> => {
-
-        console.log(setIsLoggedIn)
 
         // Validações básicas de campos vazios
         if (!name || name.trim() === '') {
@@ -58,9 +58,9 @@ export const useLogin = () => {
                 return false;
             }
 
+             // Login bem-sucedido
             setIsLoggedIn(true)
             navigate(`/${data.id}`)
-            // Login bem-sucedido
             alert(`Bem vindo, ${name}!`);
             return true;
 
