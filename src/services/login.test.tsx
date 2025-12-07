@@ -75,7 +75,7 @@ describe('login', () => {
         expect(mockSetIsLoggedIn).not.toHaveBeenCalled();
         expect(mockNavigate).not.toHaveBeenCalled();
     })
-
+    
     // ✅ TESTES DE VALIDAÇÃO - CREDENCIAIS INVÁLIDAS
     it('Deve exibir erro quando o email é inválido', async () => {
         const result = await login('Julio', 'email@errado.com', '123456');
