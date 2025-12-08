@@ -11,25 +11,8 @@ const Home = () => {
     const [email, setEmail] = useState<string>("");
     const [password, setPassword] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
-    const navigate = useNavigate()
-    const { setIsLoggedIn } = useContext(AppContext)
-
-    const { login } = useLogin();
-
-    const validateUser = async (name:string, email:string, password:string) => {
-        const loggedIn = await login(name, email, password)
-
-        if(!loggedIn){
-            alert('Email invalido')
-        }
-
-        setIsLoggedIn(true)
-        navigate('/conta/1')
-
-    }
 
 
-    /*
     const { login } = useLogin();
     const { isLoggedIn } = useContext(AppContext);
     const navigate = useNavigate();
@@ -62,7 +45,6 @@ const Home = () => {
         }
        
     };
-*/
      /* primeira forma que eu usava
         setIsLoading(true);
         await login(name, email, password);
@@ -81,14 +63,14 @@ const Home = () => {
                     marginTop="10px"
                     value={name}
                     onChange={(e) => setName(e.target.value)}
-                    //disabled={isLoading}
+                    disabled={isLoading}
                 />
                 <Input
                     placeholder="Digite seu E-Mail"
                     marginTop="10px"
                     value={email}
                     onChange={(e) => setEmail(e.target.value)}
-                    //disabled={isLoading}
+                    disabled={isLoading}
                 />
                 <Input
                     placeholder="Digite sua Senha"
@@ -96,14 +78,14 @@ const Home = () => {
                     marginTop="10px"
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
-                    //disabled={isLoading}
+                    disabled={isLoading}
                 />
 
                 <Center>
                     <ButtonLogin
-                        onClick={validateUser}
+                        onClick={handleLogin}
                         label={isLoading ? 'Carregando...' : 'Entrar'}
-                        //disabled={isLoading}
+                        disabled={isLoading}
                     />
                 </Center>
             </Box>
