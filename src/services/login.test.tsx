@@ -28,6 +28,7 @@ jest.mock('react-router-dom', () => ({
 */
 
 
+
 describe('login', () => {
     const mockAlert = jest.fn()
     window.alert = mockAlert
@@ -36,8 +37,7 @@ describe('login', () => {
 
     beforeEach(() => {
         mockAlert.mockClear();
-        /*
-        mockSetIsLoggedIn.mockClear();
+        /*mockSetIsLoggedIn.mockClear();
         mockNavigate.mockClear(); */
     })
 

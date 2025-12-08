@@ -1,7 +1,7 @@
-import { useContext } from "react";
+// import { useContext } from "react";
 import { api } from "../api";
-import { AppContext } from "../components/AppContext";
-import { useNavigate } from "react-router-dom";
+// import { AppContext } from "../components/AppContext";
+// import { useNavigate } from "react-router-dom";
 
 interface UserData {
     email: string;
@@ -13,10 +13,8 @@ interface UserData {
 
 export const useLogin = () => {
 
-    /*
-    const { setIsLoggedIn } = useContext(AppContext);
-    const navigate = useNavigate()
-    */
+    //const { setIsLoggedIn } = useContext(AppContext);
+    //const navigate = useNavigate()
 
     const login = async (
         name: string,
