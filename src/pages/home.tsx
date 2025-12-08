@@ -1,10 +1,10 @@
-import { useContext, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import { Box, Center, Heading, Input } from "@chakra-ui/react";
 import { Card } from "../components/Card";
 import { useLogin } from "../services/login";
 import { ButtonLogin } from "../components/Button";
-import { Navigate } from "react-router-dom";
 import { AppContext } from "../components/AppContext";
+import { useNavigate } from "react-router-dom";
 
 const Home = () => {
     const [name, setName] = useState<string>("");
@@ -13,27 +13,42 @@ const Home = () => {
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
     const { login } = useLogin();
+    const { isLoggedIn } = useContext(AppContext);
+    const navigate = useNavigate();
 
-    const { setIsLoggedIn } = useContext(AppContext)
-    const navigate = useNavigate()
-
-    const validateUser = async (email: string) => {
-        const loggedIn = await login(email)
-
-        if (!loggedIn) {
-            alert('Email invalido')
+    // Se já estiver logado, redireciona para a conta
+    useEffect(() => {
+        if (isLoggedIn){
+            navigate('/conta/1');
         }
+    }, [isLoggedIn, navigate]);
 
-        setIsLoading(true)
-        Navigate('/conta/1')
-    }
-
-    /*
     const handleLogin = async () => {
+        // Previne múltiplos cliques enquanto está carregando
+        if (isLoading) return;
+
+        setIsLoading(true);
+
+        try {
+            await login(name, email, password);
+            // Se o login for bem-sucedido:
+            // - O alert já foi mostrado dentro de login()
+            // - setIsLoggedIn(true) já foi chamado
+            // - navigate('/conta/1') já foi executado
+            // - O useEffect acima vai detectar isLoggedIn = true
+        } catch (error) {
+            console.error('Erro no login: ', error);
+            alert('Erro inesperado ao fazer login.');
+        } finally {
+            setIsLoading(false);
+        }
+        /* primeira forma que eu usava
         setIsLoading(true);
         await login(name, email, password);
         setIsLoading(false);
-    }; */
+        */
+    };
+
     return (
         <Card>
             <Box backgroundColor="#FFFFFF" borderRadius="25px" padding="15px">
@@ -66,8 +81,9 @@ const Home = () => {
 
                 <Center>
                     <ButtonLogin
-                        onClick={ validateUser(email) }
+                        onClick={handleLogin}
                         label={isLoading ? 'Carregando...' : 'Entrar'}
+                        disabled={isLoading}
                     />
                 </Center>
             </Box>
