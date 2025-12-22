@@ -27,8 +27,6 @@ jest.mock('react-router-dom', () => ({
 }))
 */
 
-
-
 describe('login', () => {
     const mockAlert = jest.fn()
     window.alert = mockAlert
@@ -37,8 +35,10 @@ describe('login', () => {
 
     beforeEach(() => {
         mockAlert.mockClear();
-        /*mockSetIsLoggedIn.mockClear();
-        mockNavigate.mockClear(); */
+        /*
+        mockSetIsLoggedIn.mockClear();
+        mockNavigate.mockClear(); 
+        */
     })
 
     // ✅ TESTES DE SUCESSO
@@ -46,8 +46,8 @@ describe('login', () => {
         const result = await login('Julio', 'julio@gmail.com', '123456');
         
         expect(result).toBeTruthy()
-        // expect(mockAlert).toHaveBeenCalledWith('Bem vindo, Julio!');
         /*
+        expect(mockAlert).toHaveBeenCalledWith('Bem vindo, Julio!');
         expect(mockSetIsLoggedIn).toHaveBeenCalledWith(true)
         expect(mockNavigate).toHaveBeenLastCalledWith('/conta/1')
         */
@@ -58,29 +58,33 @@ describe('login', () => {
         const result = await login('', 'julio@gmail.com', '123456');
         
         expect(result).toBeFalsy()
-        //expect(mockAlert).toHaveBeenCalledWith('Por favor, digite seu nome'); 
+        expect(mockAlert).toHaveBeenCalledWith('Por favor, digite seu nome');
         /*
         expect(mockSetIsLoggedIn).not.toHaveBeenCalled();
-        expect(mockNavigate).not.toHaveBeenCalled(); */
+        expect(mockNavigate).not.toHaveBeenCalled(); 
+        */
     })
 
     it('Deve exibir erro quando o email está vazio', async () => {
         const result = await login('Julio', '', '123456');
         
         expect(result).toBe(false);
-        //expect(mockAlert).toHaveBeenCalledWith('Por favor, digite seu email');
+        expect(mockAlert).toHaveBeenCalledWith('Por favor, digite seu email');
         /*
         expect(mockSetIsLoggedIn).not.toHaveBeenCalled();
-        expect(mockNavigate).not.toHaveBeenCalled(); */
+        expect(mockNavigate).not.toHaveBeenCalled(); 
+        */
     })
 
     it('Deve exibir erro quando a senha está vazia', async () => {
         const result = await login('Julio', 'julio@gmail.com', '');
+        
         expect(result).toBe(false);
-        //expect(mockAlert).toHaveBeenCalledWith('Por favor, digite sua senha');
+        expect(mockAlert).toHaveBeenCalledWith('Por favor, digite sua senha');
         /*
         expect(mockSetIsLoggedIn).not.toHaveBeenCalled();
-        expect(mockNavigate).not.toHaveBeenCalled(); */
+        expect(mockNavigate).not.toHaveBeenCalled(); 
+        */
     })
 
     // ✅ TESTES DE VALIDAÇÃO - CREDENCIAIS INVÁLIDAS
@@ -88,30 +92,33 @@ describe('login', () => {
         const result = await login('Julio', 'email@errado.com', '123456');
         
         expect(result).toBe(false);
-        // expect(mockAlert).toHaveBeenCalledWith('Email inválido');
+        expect(mockAlert).toHaveBeenCalledWith('Email inválido');
         /*
         expect(mockSetIsLoggedIn).not.toHaveBeenCalled();
-        expect(mockNavigate).not.toHaveBeenCalled(); */
+        expect(mockNavigate).not.toHaveBeenCalled(); 
+        */
     })
 
     it('Deve exibir erro quando a senha é inválida', async () => {
         const result = await login('Julio', 'julio@gmail.com', 'senhaerrada');
         
         expect(result).toBe(false);
-        // expect(mockAlert).toHaveBeenCalledWith('Senha inválida');
+        expect(mockAlert).toHaveBeenCalledWith('Senha inválida');
         /*
         expect(mockSetIsLoggedIn).not.toHaveBeenCalled();
-        expect(mockNavigate).not.toHaveBeenCalled(); */
+        expect(mockNavigate).not.toHaveBeenCalled(); 
+        */
     })
 
     it('Deve exibir erro quando o nome é inválido', async () => {
         const result = await login('Maria', 'julio@gmail.com', '123456');
         
         expect(result).toBe(false);
-        // expect(mockAlert).toHaveBeenCalledWith('Nome inválido');
+        expect(mockAlert).toHaveBeenCalledWith('Nome inválido');
         /*
         expect(mockSetIsLoggedIn).not.toHaveBeenCalled();
-        expect(mockNavigate).not.toHaveBeenCalled(); */
+        expect(mockNavigate).not.toHaveBeenCalled(); 
+        */
     })
 
     // ✅ TESTES DE VALIDAÇÃO - ESPAÇOS EM BRANCO
@@ -119,29 +126,32 @@ describe('login', () => {
         const result = await login('   ', 'julio@gmail.com', '123456');
         
         expect(result).toBe(false);
-        // expect(mockAlert).toHaveBeenCalledWith('Por favor, digite seu nome');
+        expect(mockAlert).toHaveBeenCalledWith('Por favor, digite seu nome');
         /*
         expect(mockSetIsLoggedIn).not.toHaveBeenCalled();
-        expect(mockNavigate).not.toHaveBeenCalled(); */
+        expect(mockNavigate).not.toHaveBeenCalled(); 
+        */
     })
 
     it('Deve considerar email com apenas espaços como vazio', async () => {
         const result = await login('Julio', '   ', '123456');
         
         expect(result).toBe(false);
-        // expect(mockAlert).toHaveBeenCalledWith('Por favor, digite seu email');
+        expect(mockAlert).toHaveBeenCalledWith('Por favor, digite seu email');
         /*
         expect(mockSetIsLoggedIn).not.toHaveBeenCalled();
-        expect(mockNavigate).not.toHaveBeenCalled(); */
+        expect(mockNavigate).not.toHaveBeenCalled(); 
+        */
     })
 
     it('Deve considerar senha com apenas espaços como vazia', async () => {
         const result = await login('Julio', 'julio@gmail.com', '   ');
         
         expect(result).toBe(false);
-        // expect(mockAlert).toHaveBeenCalledWith('Por favor, digite sua senha');
+        expect(mockAlert).toHaveBeenCalledWith('Por favor, digite sua senha');
         /*
         expect(mockSetIsLoggedIn).not.toHaveBeenCalled();
-        expect(mockNavigate).not.toHaveBeenCalled(); */
+        expect(mockNavigate).not.toHaveBeenCalled(); 
+        */
     })
 })

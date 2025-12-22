@@ -12,9 +12,8 @@ const Home = () => {
     const [password, setPassword] = useState<string>("");
     const [isLoading, setIsLoading] = useState<boolean>(false);
 
-
     const { login } = useLogin();
-    const { isLoggedIn } = useContext(AppContext);
+    const { isLoggedIn, setIsLoggedIn } = useContext(AppContext);
     const navigate = useNavigate();
 
     // Se já estiver logado, redireciona para a conta
@@ -31,19 +30,28 @@ const Home = () => {
         setIsLoading(true);
 
         try {
-            await login(name, email, password);
+            // Chama o serviço de login que apenas valida
+            const loggedIn = await login(name, email, password);
             // Se o login for bem-sucedido:
             // - O alert já foi mostrado dentro de login()
             // - setIsLoggedIn(true) já foi chamado
             // - navigate('/conta/1') já foi executado
             // - O useEffect acima vai detectar isLoggedIn = true
+
+            // Se login retornou true (credenciais válidas)
+            if(loggedIn) {
+                // Home é responsável por atualizar estado e navegar
+                setIsLoggedIn(true);
+                navigate('/conta/1');
+            }
+            // Se loggedIn = false, o alert já foi mostrado em login()
+
         } catch (error) {
             console.error('Erro no login: ', error);
             alert('Erro inesperado ao fazer login.');
         } finally {
             setIsLoading(false);
         }
-       
     };
      /* primeira forma que eu usava
         setIsLoading(true);
@@ -79,6 +87,11 @@ const Home = () => {
                     value={password}
                     onChange={(e) => setPassword(e.target.value)}
                     disabled={isLoading}
+                    onKeyPress={(e) => {
+                        if(e.key === 'Enter' && !isLoading){
+                            handleLogin();
+                        }
+                    }}
                 />
 
                 <Center>

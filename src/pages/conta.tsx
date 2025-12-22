@@ -17,23 +17,43 @@ const Conta = () => {
     const [userData, setUserData] = useState<null | UserData>()
     const { id } = useParams()
     const navigate = useNavigate()
-
     const { isLoggedIn } = useContext(AppContext)
 
-    !isLoggedIn && navigate('/')
-
+    // Proteção 1: Verifica se está logado
     useEffect(() => {
-        const getData = async () => {
-            const data: any | UserData = await api
-            setUserData(data)
+        if (!isLoggedIn){
+            navigate('/');
         }
-        getData()
-    }, [])
+    }, [isLoggedIn, navigate]);
 
-    if(userData && id !== userData.id){
-        navigate('/')
-    }
+    // Proteção 2: Busca dados e valida ID
+    useEffect(() => {
+        // Só busca se estiver logado
+        if (!isLoggedIn) return;
 
+        const getData = async () => {
+            try {
+                const data = await api as UserData;
+
+                // Valida se o ID da URL é do usuário logado
+                if (id !== data.id){
+                    console.warn('ID invalido, redirecionando...');
+                    navigate('/')
+                    return;
+                }
+
+                // Só seta os dados se ID estiver correto
+                setUserData(data);
+
+            } catch (error) {
+                console.error('Erro ao carregar dados:', error);
+                navigate('/');
+            }
+        };
+        getData();
+    }, [id, isLoggedIn, navigate]);
+
+    // Formata a data/hora atual
     const formatDate = (): string => {
         const actualData = new Date();
         const dia = actualData.getDate().toString().padStart(2, '0');           // ✅ Dia do mês (1-31)
