@@ -19,4 +19,3 @@ export const AppContextProvider = ({ children }: any) => {
   )
 }
 
-
