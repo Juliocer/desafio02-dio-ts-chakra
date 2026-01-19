@@ -1,10 +1,11 @@
-import { createLocalStorage, getAllLocalStorage } from "./storage"
+import { changeLocalStorage, createLocalStorage, getAllLocalStorage } from "./storage"
 
 const diobank = {
     login: false
 }
 
 describe('storage', () => {
+    const mockSetItem = jest.spyOn(Storage.prototype, 'setItem')
 
     it('Deve retorna o objeto no localStoge com a chave diobank', () => {
         const mockGetItem = jest.spyOn(Storage.prototype, 'getItem')
@@ -13,8 +14,12 @@ describe('storage', () => {
     })
 
     it('Deve criar o objeto no localStoge', () => {
-        const mockSetItem = jest.spyOn(Storage.prototype, 'getItem')
         createLocalStorage()
+        expect(mockSetItem).toHaveBeenCalledWith('diobank', JSON.stringify(diobank))
+    })
+
+    it('Deve alterar o valor do objeto no localStorage', () => {
+        changeLocalStorage(diobank)
         expect(mockSetItem).toHaveBeenCalledWith('diobank', JSON.stringify(diobank))
     })
 })

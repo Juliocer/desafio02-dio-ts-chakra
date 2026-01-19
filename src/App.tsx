@@ -3,12 +3,12 @@ import { BrowserRouter} from 'react-router-dom';
 import Layout from './components/Layout';
 import { AppContextProvider } from './components/AppContext';
 import MainRoutes from './router';
-import { createLocalStorage } from './services/storage';
+import { createLocalStorage, getAllLocalStorage } from './services/storage';
 
 function App() {
 
-  createLocalStorage();
-  
+  !getAllLocalStorage() && createLocalStorage()
+
   return (
     <BrowserRouter>
       <AppContextProvider>

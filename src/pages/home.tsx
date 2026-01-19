@@ -5,6 +5,7 @@ import { useLogin } from "../services/login";
 import { ButtonLogin } from "../components/Button";
 import { AppContext } from "../components/AppContext";
 import { useNavigate } from "react-router-dom";
+import { changeLocalStorage } from "../services/storage";
 
 const Home = () => {
     const [name, setName] = useState<string>("");
@@ -42,6 +43,7 @@ const Home = () => {
             if(loggedIn) {
                 // Home é responsável por atualizar estado e navegar
                 setIsLoggedIn(true);
+                changeLocalStorage({ login: true })
                 navigate('/conta/1');
             }
             // Se loggedIn = false, o alert já foi mostrado em login()
