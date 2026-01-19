@@ -1,0 +1,28 @@
+# Configuração Netlify para Create React App (Dio Bank)
+[build]
+  # Comando para build do projeto
+  command = "npm run build"
+  
+  # Diretório onde os arquivos buildados ficam (Create React App usa "build")
+  publish = "build"
+  
+  # Variáveis de ambiente
+  [build.environment]
+    NODE_VERSION = "18"
+    CI = "false"  # Ignora warnings como erros no build
+
+# Configuração de redirecionamento para SPA (Single Page Application)
+# Essencial para React Router funcionar corretamente
+[[redirects]]
+  from = "/*"
+  to = "/index.html"
+  status = 200
+
+# Headers de segurança
+[[headers]]
+  for = "/*"
+  [headers.values]
+    X-Frame-Options = "DENY"
+    X-XSS-Protection = "1; mode=block"
+    X-Content-Type-Options = "nosniff"
+    Referrer-Policy = "no-referrer"
