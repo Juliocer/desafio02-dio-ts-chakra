@@ -23,3 +23,4 @@ describe('storage', () => {
         expect(mockSetItem).toHaveBeenCalledWith('diobank', JSON.stringify(diobank))
     })
 })
+

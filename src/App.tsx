@@ -22,6 +22,7 @@ function App() {
   );
 }
 
+
 export default App;
 
 /* Versões anteriores. Estava estudando e atualizando o codigo. estudando o useState */
